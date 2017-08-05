@@ -11,10 +11,10 @@
 
 void *func(void *arg)
 {
-  //int i = (int)arg;
-  //sleep(i);
-  //printf("thread: thread_id = %lu\n", pthread_self());
-  int i = 0;
+  while(1) {
+    sleep(i);
+  }
+  
   return NULL;
 }
 
@@ -39,3 +39,5 @@ int main(void)
 }
 
 ```
+
+如果你修改stack size, 分配位置, 那么可以创建的线程数量可能会改变.

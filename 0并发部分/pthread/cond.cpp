@@ -27,12 +27,10 @@ void *productor(void *arg)
     pthread_mutex_lock(&mutex);
     tmp->next = head;
     head = tmp;
+    pthread_cond_signal(&has_product); /*producer Vs consumer = 1:1*/
     pthread_mutex_unlock(&mutex);
 
-    pthread_cond_signal(&has_product); /*producer Vs consumer = 1:1*/
-    
     usleep(rand()%1000); //给消费者机会
-
   }
   
   return NULL;
@@ -75,10 +73,8 @@ int main(void)
   pthread_create(&ptid, NULL, productor, NULL);
   pthread_create(&ctid, NULL, consumer, NULL);
 
-
   pthread_join(ptid, NULL);
   pthread_join(ctid, NULL);
-  
   
   return 0;
 }
